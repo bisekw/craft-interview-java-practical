@@ -1,7 +1,7 @@
 @api
 Feature: Player API
 
-  # Zadanie 2: odkomentuj kroki scenariusza i dopisz ich definicje w PlayerApiSteps.java.
+  # Zadanie 3: odkomentuj kroki scenariusza i dopisz ich definicje w PlayerApiSteps.java.
   Scenario: Player details are returned
     When I request player "P-102"
 #    Then the response status is 200

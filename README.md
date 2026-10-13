@@ -1,6 +1,6 @@
 # QA Java — zadanie praktyczne na 40 minut
 
-Uzupełniasz scenariusze w gotowym frameworku Cucumber: dwa selektory, kroki scenariusza API i kroki scenariusza logowania. Pracujesz na własnej gałęzi Git. Polecenia i podział czasu: [TASKS.md](TASKS.md).
+Uzupełniasz scenariusze w gotowym frameworku Cucumber: cztery selektory, kroki scenariusza logowania i kroki scenariusza API. Pracujesz na własnej gałęzi Git. Polecenia i podział czasu: [TASKS.md](TASKS.md).
 
 Aplikacja demo znajduje się w `app/`. Testy piszesz w Javie, a dołączona aplikacja działa na Pythonie i korzysta wyłącznie z jego biblioteki standardowej. Nie trzeba instalować paczek pip ani tworzyć środowiska `.venv`.
 
@@ -18,7 +18,20 @@ Wszystkie poniższe polecenia wykonuj z katalogu z `pom.xml`.
 python .\app\run.py --port 8000
 ```
 
-Jeżeli w Windows działa launcher `py`, możesz użyć `py -3 .\app\run.py --port 8000`. Jeśli `python` otwiera Microsoft Store, wskaż zainstalowany interpreter lub użyj launchera `py`.
+**Gdy Windows zgłasza „nie znaleziono Python; uruchom bez argumentów, aby zainstalować”** (w angielskiej wersji: „Python was not found”), Python nie jest zainstalowany, a polecenie `python` jest tylko skrótem do Microsoft Store. Zainstaluj Pythona w PowerShell, zamknij i otwórz terminal ponownie, a aplikację uruchom przez launcher `py`:
+
+```powershell
+winget install -e --id Python.Python.3.14
+py -3 .\app\run.py --port 8000
+```
+
+Jeśli po instalacji `py` nadal nie jest rozpoznawany, uruchom interpreter pełną ścieżką domyślnej instalacji dla bieżącego użytkownika:
+
+```powershell
+& "$env:LOCALAPPDATA\Programs\Python\Python314\python.exe" .\app\run.py --port 8000
+```
+
+Jeśli masz już Pythona dostępnego pod nazwą z numerem wersji, np. zainstalowanego przez uv, możesz użyć go bez instalacji: `python3.14 .\app\run.py --port 8000`. Sprawdzisz to poleceniem `Get-Command python3*`.
 
 **Terminal 2 — sprawdź środowisko:**
 
@@ -40,11 +53,11 @@ Są to wyłącznie dane lokalnej aplikacji demo. Kod aplikacji i gotowe klasy fr
 ## Uruchamianie testów
 
 ```powershell
-# Scenariusz API:
-.\mvnw.cmd test "-Dtest=ApiTestRunner"
-
 # Scenariusz logowania w dwóch układach, z widoczną przeglądarką:
 .\mvnw.cmd test "-Dtest=UiTestRunner" "-Dheadless=false"
+
+# Scenariusz API:
+.\mvnw.cmd test "-Dtest=ApiTestRunner"
 
 # Całość, domyślnie bez widocznego okna Chrome:
 .\mvnw.cmd test
@@ -87,7 +100,7 @@ src/test/resources/features/
   api/PlayerApi.feature                  ZADANIE: scenariusz API
   ui/Login.feature                       ZADANIE: scenariusz logowania
 src/test/java/interview/
-  pages/LoginPage.java                   ZADANIE: dwa selektory
+  pages/LoginPage.java                   ZADANIE: cztery selektory
   api/steps/PlayerApiSteps.java          ZADANIE: kroki scenariusza API
   ui/steps/LoginSteps.java               ZADANIE: kroki scenariusza logowania
   runner/ApiTestRunner.java              uruchamia scenariusze z tagiem @api

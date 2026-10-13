@@ -3,9 +3,9 @@
 | Etap | Czas |
 |---|---:|
 | Start: przeczytanie poleceń, gałąź Git i kontrola gotowości | 5 min |
-| 1. Dwa selektory | 10 min |
-| 2. Scenariusz API | 15 min |
-| 3. Scenariusz logowania | 5 min |
+| 1. Cztery selektory | 10 min |
+| 2. Scenariusz logowania | 5 min |
+| 3. Scenariusz API | 15 min |
 | Commit i omówienie rozwiązania | 5 min |
 | **Razem** | **40 min** |
 
@@ -19,16 +19,26 @@ Utwórz gałąź roboczą `task/<twoje-inicjały>` od aktualnego stanu repozytor
 
 ## 1. Selektory — `src/test/java/interview/pages/LoginPage.java`
 
-Otwórz stronę i zbadaj DOM. Zastąp `null` w dwóch miejscach selektorami Selenium `By`:
+Otwórz stronę i zbadaj DOM. Zastąp `null` w czterech miejscach selektorami Selenium
 
-- `PASSWORD_INPUT` — pole hasła w formularzu **gracza**.
+- `USERNAME_INPUT` — pole loginu w formularzu **gracza**.
+- `PASSWORD_INPUT` — pole hasła w formularzu **gracza**. ID tego pola zmienia się po każdym załadowaniu strony.
 - `LOGIN_BUTTON` — przycisk „Zaloguj” w formularzu **gracza**.
+- `SUCCESS_MESSAGE` — komunikat wyniku logowania w formularzu **gracza**. Pojawia się dopiero po wysłaniu formularza; możesz zalogować się ręcznie danymi z README i zbadać go w DOM.
 
-Strona zawiera podobny formularz operatora. ID pola hasła zmienia się po ponownym załadowaniu strony. Wybierz stabilny kontekst lub relację do etykiety. Nie używaj skopiowanego losowego ID, absolutnego XPath ani indeksu formularza/przycisku. CSS i XPath są dopuszczalne.
+Strona zawiera podobny formularz operatora. 
+Ten sam kod ma działać dla obu układów: `normal` oraz `reversed`. Metody `openPage`, `login` i `isLoggedIn` są gotowe.
 
-Ten sam kod ma działać dla obu układów: `normal` oraz `reversed`. Pozostałe selektory i metody `openPage`, `login`, `isLoggedIn` są gotowe. Nie dodawaj `Thread.sleep`.
+## 2. Scenariusz logowania — `Login.feature` i `LoginSteps.java`
 
-## 2. Scenariusz API — `PlayerApi.feature` i `PlayerApiSteps.java`
+Plik `src/test/resources/features/ui/Login.feature` zawiera scenariusz poprawnego logowania z przykładami dla obu układów strony. Krok `Given` jest gotowy w `src/test/java/interview/ui/steps/LoginSteps.java`.
+
+1. Odkomentuj pozostałe kroki scenariusza.
+2. Dopisz ich definicje w `LoginSteps.java`: zaloguj gracza danymi `Config.VALID_USER` i `Config.VALID_PASSWORD`, a następnie sprawdź wynik logowania asercją z czytelnym komunikatem.
+
+Page Object jest dostępny przez `context.loginPage()`. Przeglądarkę uruchamia i zamyka gotowy hook. Nie piszesz drugiego scenariusza ani obsługi drivera.
+
+## 3. Scenariusz API — `PlayerApi.feature` i `PlayerApiSteps.java`
 
 Plik `src/test/resources/features/api/PlayerApi.feature` zawiera scenariusz pobrania gracza. Pierwszy krok ma już metodę w `src/test/java/interview/api/steps/PlayerApiSteps.java`, ale jej ciało jest puste. Pozostałe kroki są zakomentowane.
 
@@ -51,15 +61,6 @@ Fragment odpowiedzi:
 Odpowiedź zawiera też inne pola. Dodaj czytelne komunikaty asercji.
 
 Wybierz REST Assured albo zwykły klient HTTP, np. `java.net.http.HttpClient`. Nie trzeba dodawać zależności. W REST Assured timeouty można ustawić przez `RestAssuredConfig` / `HttpClientConfig` (`http.connection.timeout` i `http.socket.timeout`, wartości w milisekundach). W kliencie JDK są dostępne `connectTimeout(Duration)` i `HttpRequest.Builder.timeout(Duration)`. Test nie wymaga logowania, tworzenia kont ani sprzątania danych.
-
-## 3. Scenariusz logowania — `Login.feature` i `LoginSteps.java`
-
-Plik `src/test/resources/features/ui/Login.feature` zawiera scenariusz poprawnego logowania z przykładami dla obu układów strony. Krok `Given` jest gotowy w `src/test/java/interview/ui/steps/LoginSteps.java`.
-
-1. Odkomentuj pozostałe kroki scenariusza.
-2. Dopisz ich definicje w `LoginSteps.java`: zaloguj gracza danymi `Config.VALID_USER` i `Config.VALID_PASSWORD`, a następnie sprawdź wynik logowania asercją z czytelnym komunikatem.
-
-Page Object jest dostępny przez `context.loginPage()`. Przeglądarkę uruchamia i zamyka gotowy hook. Nie piszesz drugiego scenariusza ani obsługi drivera.
 
 ## Zakończenie — commit
 

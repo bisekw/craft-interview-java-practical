@@ -8,7 +8,7 @@ import io.restassured.response.Response;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.*;
 
-/** Zadanie 2: kroki scenariusza features/api/PlayerApi.feature. */
+/** Zadanie 3: kroki scenariusza features/api/PlayerApi.feature. */
 public class PlayerApiSteps {
     private Response response;
 

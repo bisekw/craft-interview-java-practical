@@ -8,7 +8,7 @@ import io.cucumber.java.en.When;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/** Zadanie 3: kroki scenariusza features/ui/Login.feature. */
+/** Zadanie 2: kroki scenariusza features/ui/Login.feature. */
 public class LoginSteps {
     private final UiContext context;
 
