@@ -8,7 +8,14 @@ Aplikacja demo znajduje się w `app/`. Testy piszesz w Javie, a dołączona apli
 
 Zainstaluj Git, JDK 17 lub nowszy, Python 3.11 lub nowszy oraz Google Chrome. Ustaw `JAVA_HOME` na katalog JDK. Pierwsze uruchomienie wymaga Internetu do pobrania Mavena, zależności i drivera Chrome. Maven Wrapper jest dołączony — osobna instalacja Mavena nie jest potrzebna.
 
-Sklonuj repozytorium z adresu otrzymanego od prowadzącego. Otwórz **katalog projektu**, zawierający `pom.xml`, w IntelliJ IDEA jako projekt Maven. Ustaw Project SDK na zainstalowany JDK i poczekaj na import zależności. Wtyczka Cucumber for Java ułatwia przechodzenie z kroku w pliku `.feature` do jego metody, ale nie jest wymagana.
+Sklonuj repozytorium [github.com/bisekw/craft-interview-java-practical](https://github.com/bisekw/craft-interview-java-practical):
+
+```powershell
+git clone https://github.com/bisekw/craft-interview-java-practical.git
+cd craft-interview-java-practical
+```
+
+Otwórz **katalog projektu**, zawierający `pom.xml`, w IntelliJ IDEA jako projekt Maven. Ustaw Project SDK na zainstalowany JDK i poczekaj na import zależności. Wtyczka Cucumber for Java ułatwia przechodzenie z kroku w pliku `.feature` do jego metody, ale nie jest wymagana.
 
 Wszystkie poniższe polecenia wykonuj z katalogu z `pom.xml`.
 
@@ -53,13 +60,13 @@ Są to wyłącznie dane lokalnej aplikacji demo. Kod aplikacji i gotowe klasy fr
 ## Uruchamianie testów
 
 ```powershell
-# Scenariusz logowania w dwóch układach, z widoczną przeglądarką:
-.\mvnw.cmd test "-Dtest=UiTestRunner" "-Dheadless=false"
+# Scenariusz logowania w dwóch układach:
+.\mvnw.cmd test "-Dtest=UiTestRunner"
 
 # Scenariusz API:
 .\mvnw.cmd test "-Dtest=ApiTestRunner"
 
-# Całość, domyślnie bez widocznego okna Chrome:
+# Całość:
 .\mvnw.cmd test
 ```
 
